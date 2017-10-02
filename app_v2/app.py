@@ -40,8 +40,8 @@ def linesep_to_br_filter(s):
     return escape(s).replace('\n', Markup('<br>'))
 
 class MessageForm(Form):
-    input_name = StringField(u'お名前', [validators.Length(min=1, max=16)])
-    input_message = TextAreaField(u'メッセージ',
+    input_name = StringField(u'이름', [validators.Length(min=1, max=16)])
+    input_message = TextAreaField(u'메시지',
                                   [validators.Length(min=1, max=1024)])
 
 @app.route('/')
@@ -60,7 +60,7 @@ def messages():
 def post():
     form = MessageForm(request.form)
     if request.method == 'POST' and form.validate():
-        timestamp = arrow.utcnow().to('Asia/Tokyo').format('YYYY/MM/DD HH:mm:ss')
+        timestamp = arrow.utcnow().to('Asia/Seoul').format('YYYY/MM/DD HH:mm:ss')
         name = request.form['input_name']
         message = request.form['input_message']
         db.session.add(Message(timestamp, name, message, filename=None))

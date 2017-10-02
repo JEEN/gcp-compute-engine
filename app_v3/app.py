@@ -58,10 +58,10 @@ def is_image():
     return _is_image
 
 class MessageForm(Form):
-    input_name = StringField(u'お名前', [validators.Length(min=1, max=16)])
-    input_message = TextAreaField(u'メッセージ',
+    input_name = StringField(u'이름', [validators.Length(min=1, max=16)])
+    input_message = TextAreaField(u'메시지',
                                   [validators.Length(min=1, max=1024)])
-    input_photo = FileField(u'画像添付(jpg, jpeg, png, gif)',
+    input_photo = FileField(u'이미자 파일(jpg, jpeg, png, gif)',
                             validators=[is_image()])
 
 @app.route('/')
@@ -81,7 +81,7 @@ def messages():
 def post():
     form = MessageForm(CombinedMultiDict((request.files, request.form)))
     if request.method == 'POST' and form.validate():
-        timestamp = arrow.utcnow().to('Asia/Tokyo').format('YYYY/MM/DD HH:mm:ss')
+        timestamp = arrow.utcnow().to('Asia/Seoul').format('YYYY/MM/DD HH:mm:ss')
         name = request.form['input_name']
         message = request.form['input_message']
         if form.input_photo.data.filename:
