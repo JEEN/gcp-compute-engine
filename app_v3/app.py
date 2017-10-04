@@ -28,7 +28,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 db = SQLAlchemy(app)
 bucket_name = '%s-imagestore' % project_id
 bucket = storage.Client().get_bucket(bucket_name)
-storage_path = 'https://storage.cloud.google.com/%s' % bucket_name
+storage_path = 'https://storage.googleapis.com/%s' % bucket_name
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -61,7 +61,7 @@ class MessageForm(Form):
     input_name = StringField(u'이름', [validators.Length(min=1, max=16)])
     input_message = TextAreaField(u'메시지',
                                   [validators.Length(min=1, max=1024)])
-    input_photo = FileField(u'이미자 파일(jpg, jpeg, png, gif)',
+    input_photo = FileField(u'이미지 파일(jpg, jpeg, png, gif)',
                             validators=[is_image()])
 
 @app.route('/')
